@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'
+      <Stack.Navigator initialRouteName='Sobre'
         screenOptions={{
           headerTitleAlign: "center",
           headerStyle: {
@@ -19,7 +19,6 @@ function App() {
           },
           headerTintColor: '#000000',
           headerTitleStyle: {
-            fontWeight: 'bold',
             fontSize: 30,
           },
         }}
