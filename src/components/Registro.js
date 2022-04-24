@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 
 export default function Registro(props) {
@@ -8,28 +8,21 @@ export default function Registro(props) {
 
 
     useLayoutEffect(() => {
-        console.log("Dados:"+data)
-        
+        if (data) {
+            setCidade(data.manha.entidade)
+        }
+
     }, [])
 
     return (
 
-        <TouchableOpacity
-            onPress={() => (console.log("Aqui: props"))}
-        >
-            <View style={styles.container}>
-                <View style={styles.linha}>
-                    <Text>
-                        Dados: {data}
-                    </Text>                    
-                </View>
-                <View style={styles.linha}>
-                    <Text>
-                        Dados 2: {data.cidade}
-                    </Text>                    
-                </View>
+        <View style={styles.container}>
+            <View style={styles.linha}>
+                <Text>
+                    Cidade de {cidade}
+                </Text>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
