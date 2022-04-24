@@ -1,33 +1,48 @@
-import { StyleSheet, View, Text, TextInput, Button, Alert, FlatList } from 'react-native';
+import React, { useState, useLayoutEffect } from 'react'
+import { StyleSheet, View, Button, FlatList } from 'react-native';
 import Registro from '../components/Registro';
+import { getData } from '../services/ApiClimaCidades';
 
 export default function Home({ navigation }) {
 
-  const data = [{
-    cidade1: "teste 1",
-    id: "1",
-    cidade2: "teste 2",
-    id: "2",
-    cidade3: "teste 3",
-    id: "3"
-  }
-  ]
+  const [dataPassoFundo, setDataPassoFundo] = useState(true)
+
+  var data = new Date()
+  var dia = String(data.getDate()).padStart(2, '0')
+  var mes = String(data.getMonth() + 1).padStart(2, '0')
+  var ano = String(data.getFullYear())
+  var dataAtual = dia + '/' + mes + '/' + ano
+
+  useLayoutEffect(() => {
+    getData("4314100", dataAtual)
+      .then(dados => setDataPassoFundo(dados))
+      .catch(erro => console.log(erro))
+      
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => navigation.navigate("Sobre")}
+          title="Sobre"
+          color="black"
+        />
+      ),
+
+    })
+
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Button style={styles.button}
-        onPress={() => navigation.navigate("Sobre")}
-        title="Sobre"
-        color="#60d68e"
-      />
       <FlatList
-        data={data}
-        renderItem={({ item }) =>
+        data={dataPassoFundo}
+        renderItem={({ item }) => {
           <Registro
             dados={item}
             navigation={navigation}
           />
         }
-        keyExtractor={item => item.id}
+
+        }
+        keyExtractor={item => item}
       />
     </View>
   );
@@ -35,6 +50,7 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: 10,
     backgroundColor: '#fff',
     alignItems: "center",
@@ -50,8 +66,4 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold"
   },
-  button: {
-    flex: 3,
-    padding: 20
-  }
 });

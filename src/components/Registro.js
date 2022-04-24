@@ -3,35 +3,29 @@ import React, { useState, useLayoutEffect } from 'react'
 
 export default function Registro(props) {
 
-    const data = props.dados
+    const data = props.data
     const [cidade, setCidade] = useState("Não Informado")
 
 
     useLayoutEffect(() => {
+        console.log("Dados:"+data)
         
-
     }, [])
-
 
     return (
 
         <TouchableOpacity
-            onPress={() => (console.log(data))}
+            onPress={() => (console.log("Aqui: props"))}
         >
             <View style={styles.container}>
                 <View style={styles.linha}>
                     <Text>
-                        Dados: {data.cidade1}
+                        Dados: {data}
                     </Text>                    
                 </View>
                 <View style={styles.linha}>
                     <Text>
-                        Dados: {data.cidade2}
-                    </Text>                    
-                </View>
-                <View style={styles.linha}>
-                    <Text>
-                        Dados: {data.cidade3}
+                        Dados 2: {data.cidade}
                     </Text>                    
                 </View>
             </View>
