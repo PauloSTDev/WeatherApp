@@ -1,16 +1,15 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react'
-import { StyleSheet, View, Button, FlatList} from 'react-native';
+import { StyleSheet, View, Button} from 'react-native';
 import Registro from '../components/Registro';
 import { getData } from '../services/ApiClimaCidades';
 
 export default function Home({ navigation }) {
 
-  const [dataPassoFundo, setDataPassoFundo] = useState(["Nd"])
+  const [dataPassoFundo, setDataPassoFundo] = useState([{}])
   const [dataMarau, setDataMarau] = useState(["Nd"])
   const [dataCarazinho, setDataCarazinho] = useState(["Nd"])
   const [dataSoledade, setDataSoledade] = useState(["Nd"])
   const [dataErechim, setDataErechim] = useState(["Nd"])
-  const [control, setControl] = useState(false)
 
   var data = new Date()
   var dia = String(data.getDate()).padStart(2, '0')
@@ -18,7 +17,8 @@ export default function Home({ navigation }) {
   var ano = String(data.getFullYear())
   var dataAtual = dia + '/' + mes + '/' + ano
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    let unmounted = false
 
     navigation.setOptions({
       headerRight: () => (
@@ -28,29 +28,33 @@ export default function Home({ navigation }) {
         />
       ),
     })
-    getData("4314100", dataAtual)
-      .then(dados => setDataPassoFundo(dados))
-      .catch(erro => console.log(erro))
 
-    getData("4311809", dataAtual)
-      .then(dados => setDataMarau(dados))
-      .catch(erro => console.log(erro))
+    if (!unmounted) {
+      getData("4314100", dataAtual)
+        .then(dados => setDataPassoFundo(dados))
+        .catch(erro => console.log(erro))
 
-    getData("4304705", dataAtual)
-      .then(dados => setDataCarazinho(dados))
-      .catch(erro => console.log(erro))
+      getData("4311809", dataAtual)
+        .then(dados => setDataMarau(dados))
+        .catch(erro => console.log(erro))
 
-    getData("4320800", dataAtual)
-      .then(dados => setDataSoledade(dados))
-      .catch(erro => console.log(erro))
+      getData("4304705", dataAtual)
+        .then(dados => setDataCarazinho(dados))
+        .catch(erro => console.log(erro))
 
-    getData("4307005", dataAtual)
-      .then(dados => setDataErechim(dados))
-      .catch(erro => console.log(erro))
+      getData("4320800", dataAtual)
+        .then(dados => setDataSoledade(dados))
+        .catch(erro => console.log(erro))
 
-    setControl(true)
+      getData("4307005", dataAtual)
+        .then(dados => setDataErechim(dados))
+        .catch(erro => console.log(erro))
+    }
+    return () => {
+      unmounted = true
+    }
 
-  }, [control])
+  }, [])
 
   return (
     <View>
@@ -97,18 +101,15 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold"
   },
-  linha: {
-    flexDirection: "row"
-  }, coluna: {
-    flex: 1
-  }, valor: {
-    flex: 4
-  }, foto: {
-    flex: 1
-  }, dados: {
-    flex: 4
-  }, imagem: {
-    width: 50,
-    height: 50,
-  },
+  menu: {
+    padding: 20,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "gray",
+    margin: 5
+
+  }, linha: {
+    flexDirection: "row",
+    alignSelf: "center"
+  }
 });
