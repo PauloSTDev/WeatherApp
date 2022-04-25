@@ -1,51 +1,48 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
+import { render } from 'react-dom'
 
 export default function Registro(props) {
 
-    const data = props.data
+    const dados = props.data
     const [cidade, setCidade] = useState("Não Informado")
-
+    const [manha, setManha] = useState([])
+    const [tarde, setTarde] = useState([])
+    const [noite, setNoite] = useState([])
 
     useLayoutEffect(() => {
-        if (data) {
-            setCidade(data.manha.entidade)
+        if (dados.manha) {
+            setCidade(dados.manha.entidade)
+            setManha(dados.manha)
+            setTarde(dados.tarde)
+            setNoite(dados.noite)
         }
-
     }, [])
 
     return (
 
-        <View style={styles.container}>
-            <View style={styles.linha}>
-                <Text>
-                    Cidade de {cidade}
-                </Text>
+        <TouchableOpacity
+            onPress={() => props.navigation.navigate("Dados", props.data)}>
+            <View style={styles.container}>
+                <View style={styles.linha}>
+                   <Text>{cidade}</Text>
+                </View>
+                
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 40,
         borderWidth: 1,
         borderRadius: 10,
         borderColor: "gray",
         margin: 5
 
     }, linha: {
-        flexDirection: "row"
-    }, coluna: {
-        flex: 1
-    }, valor: {
-        flex: 4
-    }, foto: {
-        flex: 1
-    }, dados: {
-        flex: 4
-    }, imagem: {
-        width: 50,
-        height: 50,
-    },
+        flexDirection: "row",
+        alignSelf: "center"
+    }
 });

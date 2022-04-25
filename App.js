@@ -4,6 +4,7 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Home from './src/pages/Home';
 import Sobre from './src/pages/Sobre';
+import Dados from './src/pages/Dados';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,10 @@ function App() {
               title: 'Sobre',
             }
           }
+        />
+        <Stack.Screen
+          name="Dados"
+          component={Dados}
         />
 
       </Stack.Navigator>
