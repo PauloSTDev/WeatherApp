@@ -4,6 +4,7 @@ import React, { useLayoutEffect } from 'react'
 export default function Dados({navigation}, props) {
 
     useLayoutEffect(() => {
+      console.log(props);
         navigation.setOptions({
             headerRight: () => (
               <Button onPress={() => navigation.navigate("Sobre")}

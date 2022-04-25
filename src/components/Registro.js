@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState, useLayoutEffect } from 'react'
-import { render } from 'react-dom'
+import React, { useState, useLayoutEffect, useEffect } from 'react'
 
 export default function Registro(props) {
 
@@ -17,7 +16,7 @@ export default function Registro(props) {
             setTarde(dados.tarde)
             setNoite(dados.noite)
         }
-    }, [])
+    }, [noite])
 
     return (
 
@@ -35,7 +34,7 @@ export default function Registro(props) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 40,
+        padding: 20,
         borderWidth: 1,
         borderRadius: 10,
         borderColor: "gray",

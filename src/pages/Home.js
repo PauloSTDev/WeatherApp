@@ -1,6 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react'
-import { render } from 'react-dom';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, FlatList} from 'react-native';
 import Registro from '../components/Registro';
 import { getData } from '../services/ApiClimaCidades';
 
@@ -13,14 +12,13 @@ export default function Home({ navigation }) {
   const [dataErechim, setDataErechim] = useState(["Nd"])
   const [control, setControl] = useState(false)
 
-  //const dados = [{"99010":{"24/04/2022":{"manha":{},"tarde":{},"noite":{}},"25/04/2022":{"manha":{},"tarde":{},"noite":{}},"26/04/2022":{},"27/04/2022":{},"28/04/2022":{}}}]
   var data = new Date()
   var dia = String(data.getDate()).padStart(2, '0')
   var mes = String(data.getMonth() + 1).padStart(2, '0')
   var ano = String(data.getFullYear())
   var dataAtual = dia + '/' + mes + '/' + ano
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     navigation.setOptions({
       headerRight: () => (
@@ -30,37 +28,27 @@ export default function Home({ navigation }) {
         />
       ),
     })
+    getData("4314100", dataAtual)
+      .then(dados => setDataPassoFundo(dados))
+      .catch(erro => console.log(erro))
 
-    return () => {
-      if (control === false) {
-        getData("4314100", dataAtual)
-          .then(dados => setDataPassoFundo(dados))
-          .catch(erro => console.log(erro))
-  
-        getData("4311809", dataAtual)
-          .then(dados => setDataMarau(dados))
-          .catch(erro => console.log(erro))
-  
-        getData("4304705", dataAtual)
-          .then(dados => setDataCarazinho(dados))
-          .catch(erro => console.log(erro))
-  
-        getData("4320800", dataAtual)
-          .then(dados => setDataSoledade(dados))
-          .catch(erro => console.log(erro))
-  
-        getData("4307005", dataAtual)
-          .then(dados => setDataErechim(dados))
-          .catch(erro => console.log(erro))
-  
-        setControl(true)
-      }
-      else{
-        setControl(false)
-      }
-      
-    }
+    getData("4311809", dataAtual)
+      .then(dados => setDataMarau(dados))
+      .catch(erro => console.log(erro))
 
+    getData("4304705", dataAtual)
+      .then(dados => setDataCarazinho(dados))
+      .catch(erro => console.log(erro))
+
+    getData("4320800", dataAtual)
+      .then(dados => setDataSoledade(dados))
+      .catch(erro => console.log(erro))
+
+    getData("4307005", dataAtual)
+      .then(dados => setDataErechim(dados))
+      .catch(erro => console.log(erro))
+
+    setControl(true)
 
   }, [control])
 
@@ -87,7 +75,6 @@ export default function Home({ navigation }) {
         data={dataErechim}
         navigation={navigation}
       />
-
     </View>
   );
 }
