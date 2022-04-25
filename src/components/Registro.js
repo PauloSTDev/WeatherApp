@@ -5,16 +5,7 @@ export default function Registro(props, { navigation }) {
 
     const dados = props.data
     const [cidade, setCidade] = useState("Não Informado")
-
-    const [tempMaxManha, setTempMaxManha] = useState("")
-    const [tempMinManha, setTempMinManha] = useState("")
-
-    const [tempMaxTarde, setTempMaxTarde] = useState("")
-    const [tempMinTarde, setTempMinTarde] = useState("")
-
-    const [tempMaxNoite, setTempMaxNoite] = useState("")
-    const [tempMinNoite, setTempMinNoite] = useState("")
-
+    const [dia, setDia] = useState("")
 
 
     useEffect(() => {
@@ -23,21 +14,13 @@ export default function Registro(props, { navigation }) {
 
         if (!unmounted) {
             if (dados.manha) {
+                setDia(dados.manha["dia_semana"])
                 setCidade(dados.manha.entidade)
-
-                setTempMaxManha(dados.manha.temp_max)
-                setTempMinManha(dados.manha.temp_min)
-
-                setTempMaxTarde(dados.tarde.temp_max)
-                setTempMinTarde(dados.tarde.temp_min)
-
-                setTempMaxNoite(dados.noite.temp_max)
-                setTempMinNoite(dados.noite.temp_min)
-
             }
         }
         return () => {
             unmounted = true
+            //console.log(dia);
         }
     }, [])
 
@@ -47,36 +30,11 @@ export default function Registro(props, { navigation }) {
             onPress={() => props.navigation.navigate("Resultado", props.data)}>
             <View style={styles.container}>
                 <View style={styles.linha}>
-                    <Text>{cidade}</Text>
+                    <Text style={styles.text}>{cidade}</Text>
                 </View>
-                <View style={styles.items}>
-
-                        <Text>Manha</Text>
-
-                        <Text>Tarde</Text>
-
-                        <Text>Noite</Text>
-
+                <View style={styles.linha}>
+                    <Text>Dia da semana: {dia}</Text>
                 </View>
-                <View style={styles.items}>
-
-                        <Text>Max    Min</Text>
-
-                        <Text>Max    Min</Text>
-
-                        <Text>Max    Min</Text>
-
-                </View>
-                <View style={styles.items}>
-
-                        <Text>{tempMaxManha}ºC   {tempMinManha}ºC</Text>
-
-                        <Text>{tempMaxTarde}ºC   {tempMinTarde}ºC</Text>
-
-                        <Text>{tempMaxNoite}ºC   {tempMinNoite}ºC</Text>
-
-                </View>
-
 
             </View>
         </TouchableOpacity>
@@ -85,18 +43,22 @@ export default function Registro(props, { navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 2,
         borderWidth: 2,
         borderRadius: 10,
         borderColor: "#60d68e",
         margin: 5
 
     }, linha: {
+        fontWeight: 'bold',
         flexDirection: "row",
         alignSelf: "center"
     },
     items: {
         flexDirection: 'row',
         justifyContent: 'space-between'
+    }, text: {
+        fontWeight: 'bold',
+        fontSize: 30,
     }
 });

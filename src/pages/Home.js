@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
   var ano = String(data.getFullYear())
   var dataAtual = dia + '/' + mes + '/' + ano
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let unmounted = false
 
     navigation.setOptions({
