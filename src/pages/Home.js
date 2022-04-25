@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
   var ano = String(data.getFullYear())
   var dataAtual = dia + '/' + mes + '/' + ano
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let unmounted = false
 
     navigation.setOptions({
@@ -54,7 +54,7 @@ export default function Home({ navigation }) {
       unmounted = true
     }
 
-  }, [])
+  }, [dataErechim, dataPassoFundo, dataSoledade, dataMarau, dataCarazinho])
 
   return (
     <View>

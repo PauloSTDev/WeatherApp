@@ -1,11 +1,11 @@
 import { View, Text, Button, StyleSheet } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 
 export default function Resultado(props) {
     const [cidade, setCidade] = useState("Teste")
 
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         props.navigation.setOptions({
             title: props.route.params.manha.entidade,
 

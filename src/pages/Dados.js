@@ -5,7 +5,7 @@ export default function Dados({ navigation }, props) {
 
   console.log(props);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Button onPress={() => navigation.navigate("Sobre")}
