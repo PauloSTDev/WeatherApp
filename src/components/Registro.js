@@ -10,19 +10,11 @@ export default function Registro(props, { navigation }) {
 
     useEffect(() => {
 
-        let unmounted = false
-
-        if (!unmounted) {
-            if (dados.manha) {
-                setDia(dados.manha["dia_semana"])
-                setCidade(dados.manha.entidade)
-            }
+        if (dados.manha) {
+            setDia(dados.manha["dia_semana"])
+            setCidade(dados.manha.entidade)
         }
-        return () => {
-            unmounted = true
-            //console.log(dia);
-        }
-    }, [])
+    }, [dados])
 
     return (
 
